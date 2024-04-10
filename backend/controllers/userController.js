@@ -3,11 +3,12 @@ const Post = require('../models/Post');
 
 exports.followUser = async (req, res) => {
     try {
-        const { userIdToFollow, userId } = req.body; // Extract userIdToFollow and userId from req.body
-        if (!userId || !userIdToFollow) {
+        const {actionuser, userId} = req.body;
+        console.log(actionuser, userId); 
+        if (!userId || !actionuser) {
             return res.status(400).json({success:false, message:"user not find"});
         }
-        const user = await User.findByIdAndUpdate(userId, { $addToSet: { following: userIdToFollow } }, { new: true });
+        const user = await User.findByIdAndUpdate(actionuser, { $addToSet: { following: userId } }, { new: true });
         return  res.status(200).json({success:true, user});
     } catch (error) {
         console.error('Error following user:', error);
@@ -17,11 +18,11 @@ exports.followUser = async (req, res) => {
 
 exports.unfollowUser = async (req, res) => {
     try {
-        const { userIdToUnfollow, userId } = req.body; // Extract userIdToUnfollow and userId from req.body
-        if (!userId || !userIdToUnfollow) {
+        const { actionuser, userId } = req.body; // Extract userIdToUnfollow and userId from req.body
+        if (!userId || !actionuser) {
             return res.status(400).json({success:false, message:"error to unfollow"});
         }
-        const user = await User.findByIdAndUpdate(userId, { $pull: { following: userIdToUnfollow } }, { new: true });
+        const user = await User.findByIdAndUpdate(actionuser, { $pull: { following: userId } }, { new: true });
         return res.status(200).json({success:true, message:"done"});
     } catch (error) {
         console.error('Error unfollowing user:', error);

@@ -4,7 +4,7 @@ const config = require('../config');
 
 module.exports = (req, res, next) => {
   const token = req.headers['authorization'];
-  
+
   if (!token) {
     return res.status(401).json({ auth: false, message: 'No token provided' });
   }

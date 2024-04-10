@@ -3,12 +3,12 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const authMiddleware = require('../middleware/authMiddleware');
 
-router.post('/:userId/follow', authMiddleware, userController.followUser);
-router.post('/:userId/unfollow', authMiddleware, userController.unfollowUser);
+router.post('/follow', authMiddleware, userController.followUser);
+router.post('/unfollow', authMiddleware, userController.unfollowUser);
 
 router.post('/:postId/like',authMiddleware,  userController.likePost)
 
-router.delete('/:postId/unlike', authMiddleware, userController.unlikePost )
+router.post('/:postId/unlike', authMiddleware, userController.unlikePost )
 
 router.get('/:postId/getlike',authMiddleware,  userController.getPostLikes)
 

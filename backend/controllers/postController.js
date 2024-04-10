@@ -17,6 +17,7 @@ exports.createPost = async (req, res) => {
     const post = await Post.create({ title, description, image, user: userId,  cloudinary_id,tags,category });
     
     // Send the created post as a response
+
    return res.status(201).json({post,  success:true});
   } catch (error) {
     // If an error occurs, log it and send an error response
@@ -38,16 +39,20 @@ exports.getAllPosts = async (req, res) => {
 exports.getSinglePostById = async (req, res) => {
   try {
     const postId = req.params.id;
-    const post = await Post.findById(postId).populate('user', 'username'); 
+    const post = await Post.findById(postId).populate({
+      path: 'user',
+      select: 'username followers following'
+    }); 
     if (!post) {
       return res.status(404).json({ message: 'Post not found', success:false });
     }
-   return res.status(200).json({success:true,post});
+    return res.status(200).json({ success:true, post });
   } catch (error) {
     console.error('Error fetching single post:', error);
     res.status(500).json({ message: 'Error fetching single post', success:false });
   }
-};
+}
+
 
 exports.getPostByUserId = async(req, res)=>{
   try {

@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect(config.databaseURI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.databaseURI);
 mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB');
 });

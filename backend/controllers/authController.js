@@ -12,14 +12,17 @@ exports.register = async (req, res) => {
       // Create the user
       const user = await User.create({ username, email, password: hashedPassword });
       
-  
-      await sendWelcomeEmail(email, username);
+      if (!user) {
+       
+        return res.status(404).json({ message: 'create' });
+      }
+      // await sendWelcomeEmail(email, username);
       
       // Generate JWT token
-      const token = jwt.sign({ id: user._id }, config.secretKey, { expiresIn: 86400 }); // Expires in 24 hours
+      const token = jwt.sign({ id: user._id }, config.secretKey); // Expires in 24 hours
       
       // Send response with token
-      res.status(200).send({ auth: true, token });
+      res.status(200).send({ auth: true, token, user });
   } catch (error) {
       console.error('Error registering user:', error);
       res.status(500).send('Error registering user');

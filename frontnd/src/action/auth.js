@@ -1,36 +1,34 @@
-import axios from  'axios';
-export const register = async (username, email, password) => {
+import axios from 'axios';
+
+export const register = async (formData) => {
   try {
-    const body = {username, email, password };
-    return await axios.post(`http://localhost:4000/api/auth/register`, JSON.stringify(body));
+    const body = formData;
+    return await axios.post('http://localhost:4000/api/auth/register', body);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
-export const login = async ( email, password) => {
+export const login = async (formData) => {
   try {
-    const body = { email, password };
-    return await axios.post(`http://localhost:4000/api/auth/login`, JSON.stringify(body));
+    return await axios.post('http://localhost:4000/api/auth/login', formData);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
-export const deleteuser = async (userId ) => {
+export const deleteUser = async (userId) => {
   try {
-    const body = {userId};
-    return await axios.post(`http://localhost:4000/api/auth/deleteuser`, JSON.stringify(body));
+    return await axios.delete(`http://localhost:4000/api/auth/users/${userId}`);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
-export const updateuser = async (userId, newData ) => {
+export const updateUser = async (userId, newData) => {
   try {
-    const body = {userId, newData};
-    return await axios.post(`http://localhost:4000/api/auth/updateuser`, JSON.stringify(body));
+    return await axios.put(`http://localhost:4000/api/auth/users/${userId}`, newData);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
