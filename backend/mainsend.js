@@ -1,11 +1,11 @@
 const nodemailer = require("nodemailer");
-
+const config = require('./config');
 // Create a transporter with the provided SMTP configuration
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: "dhanraj.webdev@gmail.com",
-    pass: "qewazhazdrfaaqgx",
+    user: config.user,
+    pass: config.pass,
   },
 });
 
