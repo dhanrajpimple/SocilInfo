@@ -54,17 +54,18 @@ exports.getSinglePostById = async (req, res) => {
 }
 
 
-exports.getPostByUserId = async(req, res)=>{
+exports.getPostByUserId = async (req, res) => {
   try {
-    const {userId} = req.body;
-    const post = await  Post.find({user : userId});
-    if(!post){
-      return res.status(404).json({ message: 'Post not found', success:false});
+    const { userId } = req.body; 
+   console.log(req.body);
+    const posts = await Post.find({ user: userId });
+    if (!posts || posts.length === 0) { // Check if posts is empty or not found
+      return res.status(404).json({ message: 'Posts not found', success: false });
     }
-    return res.status(200).json({success:true, post});
+    return res.status(200).json({ success: true, posts }); // Return posts as array
   } catch (error) {
-    console.error('Error fetching userpost post:', error);
-    res.status(500).json({ message: 'Error fetching userpost post', success:false });
+    console.error('Error fetching user posts:', error);
+    res.status(500).json({ message: 'Error fetching user posts', success: false });
   }
 };
 exports.updatePost = async (req, res) => {

@@ -13,9 +13,9 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
         <div>
       {/* Desktop Menu */}
       <div className="hidden md:flex space-x-6">
-        <Link to="/" className="text-white hover:text-yellow-500 transition duration-300">Home</Link>
+        <Link to="/home" className="text-white hover:text-yellow-500 transition duration-300">Home</Link>
         <Link to="/create-post" className="text-white hover:text-yellow-500 transition duration-300">Create Post</Link>
-        <Link to="/all-posts" className="text-white hover:text-yellow-500 transition duration-300">All Posts</Link>
+        <Link to="/" className="text-white hover:text-yellow-500 transition duration-300">All Posts</Link>
         {isLoggedIn ? (
           <button className="text-white hover:text-yellow-500 transition duration-300" onClick={handleLogout}>Logout</button>
         ) : (

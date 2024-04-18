@@ -35,3 +35,26 @@ export const getsinglepost = async (id) => {
     throw error;
   }
 };
+
+
+export const getsinglepostId = async (id, token) => {
+  try {
+    const storedToken = localStorage.getItem('token');
+    const authToken = storedToken ? storedToken : token;
+
+    const headers = {
+      'Authorization': `Bearer ${authToken}`
+    };
+   const body ={
+    userId :id
+ }
+
+    return await axios.post(`http://localhost:4000/api/posts/getuserpost`,body, {
+      headers: headers
+    });
+  } catch (error) {
+    console.error('Error fetching user post:', error);
+    throw error;
+  }
+};
+

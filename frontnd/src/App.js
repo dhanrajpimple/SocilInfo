@@ -8,6 +8,7 @@ import LoginPage from "./components/LoginPage"
 import CreatePostCard from './components/CreatePostCard';
 import PostCard from './components/PostCard';
 import SinglePostPage from './components/SinglePostPage';
+import Home from './components/Home';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <div>
         <Navbar />
         <Routes>
-          <Route path="/" element={<PostCard />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/" defulte element={<PostCard />} />
           <Route path="/register" element={<RegisterCard />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/create-post" element={<CreatePostCard />} />

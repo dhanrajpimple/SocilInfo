@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const config = require('../config');
+require('dotenv').config();
 const {sendWelcomeEmail} = require('../mainsend')
 
 exports.register = async (req, res) => {
@@ -19,7 +20,7 @@ exports.register = async (req, res) => {
       // await sendWelcomeEmail(email, username);
       
       // Generate JWT token
-      const token = jwt.sign({ id: user._id }, config.secretKey); // Expires in 24 hours
+      const token = jwt.sign({ id: user._id }, process.env.secretKey); // Expires in 24 hours
       
       // Send response with token
       res.status(200).send({ auth: true, token, user });
@@ -38,7 +39,7 @@ exports.login = async (req, res) => {
        
         return res.status(404).json({ message: 'No user found' });
       }
-      const token = jwt.sign({ id: user._id }, config.secretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ id: user._id }, process.env.secretKey, { expiresIn: '1h' });
       res.status(200).json({ auth: true, token, user });
     } catch (error) {
       // Internal server error
@@ -76,3 +77,21 @@ exports.login = async (req, res) => {
         return res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
+
+exports.getUser = async (req, res) => {
+  try {
+    const { userId } = req.body;
+  
+    if (!userId) {
+      return res.status(400).json({ success: false, message: "userId is required" });
+    }
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    return res.status(200).json({ success: true, user }); // Return user directly without wrapping in a success object
+  } catch (error) {
+    console.error("Error getting user:", error);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};

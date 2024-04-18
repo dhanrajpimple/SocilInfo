@@ -1,10 +1,10 @@
 
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
-
+require('dotenv').config();
 cloudinary.config({
-  cloud_name: "daqrap32m",
-  api_key: "283573297842516",
-  api_secret: "E9NqLBAcStw6TMac-siywOTi2S8"
+  cloud_name:process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret:process.env.api_secret
 });
 module.exports = cloudinary;

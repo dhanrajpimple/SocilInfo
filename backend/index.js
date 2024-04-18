@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const config = require('./config');
+require('dotenv').config()
 const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -12,8 +12,7 @@ app.use(cors());
 // Middleware
 app.use(bodyParser.json());
 
-// Connect to MongoDB
-mongoose.connect(config.databaseURI);
+mongoose.connect(process.env.databaseURI);
 mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB');
 });

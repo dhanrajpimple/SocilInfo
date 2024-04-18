@@ -8,7 +8,7 @@ const upload = require('../multer')
 
 
 router.post('/create', upload.single("image"),authMiddleware, postController.createPost);
-router.get('/getuserpost', authMiddleware,postController.getPostByUserId);
+router.post('/getuserpost', authMiddleware,postController.getPostByUserId);
 router.get('/getall', postController.getAllPosts);
 router.get('/:id/singlepost', authMiddleware,postController.getSinglePostById);
 router.put('/updatepost',authMiddleware, postController.updatePost)
