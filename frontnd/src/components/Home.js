@@ -91,6 +91,7 @@ const Home = () => {
           key={item._id}
           className="w-full sm:w-1/2 md:w-1/3 px-4 mb-8"
         >
+            // this is require to change
           <div className="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg">
             <div className="relative">
               <img
